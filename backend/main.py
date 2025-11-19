@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Middleware CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -26,7 +25,7 @@ def home():
 
 @app.post("/alunos")
 def adicionar_aluno(aluno: Aluno):
-    alunos.append(aluno)
+    alunos.append(aluno.dict())
     return {"mensagem": "Aluno adicionado"}
 
 @app.get("/alunos")
@@ -42,22 +41,22 @@ def estatisticas():
             "alunos_com_baixa_frequencia": []
         }
 
-    num_disciplinas = len(alunos[0].notas)
+    num_disciplinas = len(alunos[0]["notas"])
     medias = []
 
     for i in range(num_disciplinas):
-        soma = sum(a.notas[i] for a in alunos)
+        soma = sum(a["notas"][i] for a in alunos)
         medias.append(soma / len(alunos))
 
     media_geral = sum(medias) / len(medias)
 
     acima = []
     for a in alunos:
-        media_aluno = sum(a.notas) / len(a.notas)
+        media_aluno = sum(a["notas"]) / len(a["notas"])
         if media_aluno > media_geral:
-            acima.append(a.nome)
+            acima.append(a["nome"])
 
-    baixa_freq = [a.nome for a in alunos if a.frequencia < 75]
+    baixa_freq = [a["nome"] for a in alunos if a["frequencia"] < 75]
 
     return {
         "media_turma_disciplinas": medias,

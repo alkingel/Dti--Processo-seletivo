@@ -22,13 +22,19 @@ export default function App() {
 
   return (
     <div>
-      <h1>Sistema de Notas</h1>
+  <h1>Sistema de Notas</h1>
 
+  <div className="card">
       <FormAluno onAdd={atualizar} />
+  </div>
 
+  <div className="card">
       <ListaAlunos alunos={alunos} />
+  </div>
 
+  <div className="card">
       <Estatisticas stats={stats} />
-    </div>
+  </div>
+</div>
   );
 }
