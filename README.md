@@ -9,7 +9,7 @@ Este projeto consiste em uma aplicação simples para cadastro, listagem e anál
 - React (Vite)
 - JavaScript
 - Fetch API
-- CSS puro
+- CSS 
 
 ### **Backend**
 - Python
