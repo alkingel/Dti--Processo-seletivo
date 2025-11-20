@@ -1,4 +1,4 @@
-# Sistema de Gerenciamento de Notas – React + FastAPI
+# Sistema de Gerenciamento de Notas 
 
 Este projeto consiste em uma aplicação simples para cadastro, listagem e análise de alunos.  
 
