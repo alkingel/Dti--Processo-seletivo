@@ -26,6 +26,18 @@ Este projeto consiste em uma aplicação simples para cadastro, listagem e anál
 - Python 3.10+ instalado
 
 ---
+## Instalando dependencias
+1. Abra o terminal e execute
+ 
+```bash
+cd backend
+pip install fastapi uvicorn
+```
+```bash
+cd frontend
+npm install
+```
+
 ## Executando pelo atalho (windows .bat)
 1. Acesse a pasta do arquivo
 2. Clique no executavel "run_project"
@@ -39,13 +51,7 @@ Este projeto consiste em uma aplicação simples para cadastro, listagem e anál
 cd backend
 ```
 
-2. Instale as dependências:
-
-```bash
-pip install fastapi uvicorn
-```
-
-3. Inicie o servidor:
+2. Inicie o servidor:
 
 ```bash
 uvicorn main:app --reload
@@ -67,13 +73,7 @@ http://localhost:8000
 cd frontend
 ```
 
-2. Instale as dependências:
-
-```bash
-npm install
-```
-
-3. Execute o projeto:
+2. Execute o projeto:
 
 ```bash
 npm run dev
