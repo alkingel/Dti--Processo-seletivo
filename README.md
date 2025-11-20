@@ -26,7 +26,11 @@ Este projeto consiste em uma aplicação simples para cadastro, listagem e anál
 - Python 3.10+ instalado
 
 ---
-
+## Executando pelo atalho (windows .bat)
+1. Acesse a pasta do arquivo
+2. Clique no executavel "run_project"
+3. Abra o endereço http://localhost:5173/
+   
 ## Executando o Backend (FastAPI)
 
 1. Acesse a pasta do backend:
