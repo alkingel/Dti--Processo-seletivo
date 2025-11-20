@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -19,10 +19,6 @@ class Aluno(BaseModel):
 
 alunos = []
 
-@app.get("/")
-def home():
-    return {"mensagem": "API funcionando!"}
-
 @app.post("/alunos")
 def adicionar_aluno(aluno: Aluno):
     alunos.append(aluno.dict())
@@ -31,6 +27,13 @@ def adicionar_aluno(aluno: Aluno):
 @app.get("/alunos")
 def listar_alunos():
     return alunos
+
+@app.delete("/alunos/{index}")
+def excluir_aluno(index: int):
+    if index < 0 or index >= len(alunos):
+        raise HTTPException(status_code=404, detail="Aluno não encontrado")
+    alunos.pop(index)
+    return {"mensagem": "Aluno removido"}
 
 @app.get("/estatisticas")
 def estatisticas():
@@ -42,19 +45,19 @@ def estatisticas():
         }
 
     num_disciplinas = len(alunos[0]["notas"])
-    medias = []
 
+    medias = []
     for i in range(num_disciplinas):
         soma = sum(a["notas"][i] for a in alunos)
         medias.append(soma / len(alunos))
 
     media_geral = sum(medias) / len(medias)
 
-    acima = []
-    for a in alunos:
-        media_aluno = sum(a["notas"]) / len(a["notas"])
-        if media_aluno > media_geral:
-            acima.append(a["nome"])
+    acima = [
+        a["nome"]
+        for a in alunos
+        if (sum(a["notas"]) / len(a["notas"])) > media_geral
+    ]
 
     baixa_freq = [a["nome"] for a in alunos if a["frequencia"] < 75]
 

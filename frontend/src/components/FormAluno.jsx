@@ -4,58 +4,52 @@ import { adicionarAluno } from "../services/api";
 export default function FormAluno({ onAdd }) {
   const [nome, setNome] = useState("");
   const [notas, setNotas] = useState(["", "", "", "", ""]);
-  const [frequencia, setFrequencia] = useState("");
+  const [freq, setFreq] = useState("");
 
-  function updateNota(value, index) {
-    const n = [...notas];
-    n[index] = value;
-    setNotas(n);
+  function updateNota(v, i) {
+    const copia = [...notas];
+    copia[i] = v;
+    setNotas(copia);
   }
 
   async function enviar(e) {
     e.preventDefault();
 
-    const payload = {
+    await adicionarAluno({
       nome,
-      notas: notas.map(n => Number(n)),
-      frequencia: Number(frequencia),
-    };
-
-    await adicionarAluno(payload);
+      notas: notas.map(Number),
+      frequencia: Number(freq),
+    });
 
     setNome("");
     setNotas(["", "", "", "", ""]);
-    setFrequencia("");
+    setFreq("");
 
     onAdd();
   }
 
   return (
     <form onSubmit={enviar}>
-  <h2 style={{marginTop: 0}}>Cadastrar Aluno</h2>
+      <h2>Cadastrar Aluno</h2>
 
-  <input
-    placeholder="Nome do aluno"
-    value={nome}
-    onChange={e => setNome(e.target.value)}
-  />
+      <input placeholder="Nome" value={nome} onChange={e => setNome(e.target.value)} />
 
-  {notas.map((n, i) => (
-    <input
-      key={i}
-      placeholder={`Nota ${i + 1}`}
-      value={n}
-      onChange={(e) => updateNota(e.target.value, i)}
-    />
-  ))}
+      {notas.map((n, i) => (
+        <input
+          key={i}
+          placeholder={`Nota ${i + 1}`}
+          value={n}
+          onChange={e => updateNota(e.target.value, i)}
+        />
+      ))}
 
-  <input
-    placeholder="Frequência (%)"
-    value={frequencia}
-    onChange={e => setFrequencia(e.target.value)}
-  />
+      <input
+        placeholder="Frequência (%)"
+        value={freq}
+        onChange={e => setFreq(e.target.value)}
+      />
 
-  <button type="submit">Adicionar</button>
-</form>
+      <button type="submit">Adicionar</button>
+    </form>
   );
 }
