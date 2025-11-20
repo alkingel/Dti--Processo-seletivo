@@ -26,7 +26,7 @@ Este projeto consiste em uma aplicação simples para cadastro, listagem e anál
 - Python 3.10+ instalado
 
 ---
-## Instalando dependencias
+## Instalando Dependências
 1. Abra o terminal e execute
  
 ```bash
